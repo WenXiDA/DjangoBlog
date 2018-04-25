@@ -1,0 +1,149 @@
+<!-- <!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+	<title>Test</title>
+	<link rel="stylesheet" type="text/css" href="../static/css/semantic.css" charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="../static/css/home.css" charset="utf-8">
+
+</head>
+<body>
+	<div class="ui vertical inverted  basic segment">
+		<div  class="ui inverted menu">
+			<div class="ui text menu">
+				<a href="#" class=" item">好的生活。没那么贵</a>
+				<div class="item">
+					<i class="icon"></i>
+					<a href="#">{{message}}</a>
+				</div>
+			</div>
+
+			<div class=" inverted right menu">
+				<div class="ui text menu">
+					<a href="#" class="item">登录</a>
+					<a href="#" class="item">注册</a>
+				</div>
+			</div>
+				<a href="#" class="item">我的订单</a>
+				<a href="#" class="item">会员</a>
+				<a href="#" class="item">甄选家</a>
+				<a href="#" class="item">企业采购</a>
+				<a href="#" class="item">客服服务</a>
+				<a href="#" class="item">APP</a>
+			</div>
+		</div>
+	</div>
+
+	<div class="ui vertical basic segment">
+		<div class="ui image">
+			<img src="../static/images/title1.jpg"/>
+		</div>
+	</div>
+	<div class="ui basic padded segment">
+		<div class="ui text menu">
+			<h1><a href="#" class="item" style="font-weight:bold;">品牌制造商</a></h1>
+			<p class="item">工厂直达消费者，剔除品牌溢价</p>
+			<div class="right menu">
+				<a href="#" class="item">更多制造商 ></a>
+			</div>
+		</div>
+
+		<div class="ui three column grid">
+			<div class="column">
+				<div class="ui image">
+					<img src="../static/images/food.jpg"/>
+				</div>
+			</div>
+			<div class="column">
+				<div class="ui image">
+					<img src="../static/images/girl.jpg"/>
+				</div>
+			</div>
+			<div class="column">
+					<div style="position: relative;width: 100%;height: 45%">
+						<div style="width: 40%;position: absolute;top: 20%;">
+							<div style="margin-bottom: 8px;font-size: 20px;">新秀丽制造</div>
+							<div class="price">
+								<span>49元起</span>
+							</div>
+						</div>
+						<div class="ui image right">
+							<img src="../static/images/1.png"/>
+						</div>
+					</div>
+					<div style="position: relative;width: 100%;height: 45%">
+						<div style="width: 40%;position: absolute;top: 20%;">
+							<div style="margin-bottom: 8px;font-size: 20px;">新秀丽制造</div>
+							<div class="price">
+								<span>49元起</span>
+							</div>
+						</div>
+						<div class="ui image right">
+							<img src="../static/images/1.png"/>
+						</div>
+					</div>
+			</div>
+		</div>
+	</div>
+	<div class="ui basic padded segment">
+		<div class="ui text menu">
+			<h1><a href="#" class="item" style="font-weight:bold;">新品首发</a></h1>
+			<p class="item">为你寻觅世间好物</p>
+			<div class="right menu">
+				<a href="#" class="item">更多新品 ></a>
+			</div>
+		</div>
+
+		<div class="ui four column grid">
+			<div class="column">
+				<div class="ui fluid basic card">
+			      <div class="image">
+			       	 <img src="../static/images/glasses.png">
+			      </div>
+			      <div class="content">
+			       	 <a class="header">网易智造减压按摩眼镜</a>
+			       	 <a class="header">￥382</a>
+			      </div>
+			    </div>
+			</div>
+			<div class="column">
+				<div class="ui image">
+					<img src="../static/images/huangju.png">
+				</div>
+			</div>
+			<div class="column">
+				<div class="ui image">
+					<img src="../static/images/milk.png">
+				</div>
+			</div>
+			<div class="column">
+				<div class="ui image">
+					<img src="../static/images/milk.png">
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="ui segment"></div>
+
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-COMPATIBLE" content="IE-edge,chrome-1" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+
+        <title>Semantic-UI</title>
+       
+
+    </head>
+    <body>
+		<form  method="POST">{% csrf_token %}
+			{{ form }}
+			<button class="ui circular button" type="submmt">Login</button>
+		</form>
+	</div>
+    </body>
+</html>

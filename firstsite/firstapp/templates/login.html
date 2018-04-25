@@ -1,0 +1,25 @@
+{% extends '__base__.html' %}
+
+
+{% block title %}Login{% endblock %}
+{% block beforehead %}
+<link rel="stylesheet" type="text/css" href="../static/css/login.css" charset="utf-8">
+{% endblock %}
+{% block content %}
+	<div  class = "login">
+		<form class="ui form login" method="POST">{% csrf_token %}
+			<span style="color: red">{{form.errors}}</span>
+			<div class="">
+				<label>User Name</label>
+				{{form.user_name}}
+				<!-- <input type="text" name="user_name" placeholder="User Name"> -->
+			</div>
+			<div class="">
+				<label>Pass Word</label>
+				{{form.pass_word}}
+				<!-- <input type="password" name="pass_word" placeholder="Pass Word"> -->
+			</div>
+			<button class="ui circular button" type="submmt">Login</button>
+		</form>
+	</div>
+{% endblock %}

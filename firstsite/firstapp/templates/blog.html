@@ -1,0 +1,46 @@
+
+
+{% extends '__base__.html' %}
+
+
+{% block title %}博客{% endblock %}
+{% block beforehead %}
+<link rel="stylesheet" type="text/css" href="../static/css/content.css" charset="utf-8">
+{% endblock %}
+
+{% block content %}
+
+	<div class="ui grid">
+		<div class="twelve wide column ">
+			<div class="ui basic segment">
+				<h2 class="ui header blog_name">{{blog.name}}</h2>
+				<p class="blog_auther">作者:{{blog.user_name}}</p>
+				<p class="blog_summary">{{blog.content}}</p>
+				<div class="ui divider"></div>
+			</div>
+			<div class="ui segment">
+				{% for comment in blog.under_comment.all %}
+					<h4 class="ui header">
+						{{ comment.user_name }}
+					</h4>
+					<div class="">
+						{{ comment.comment }}
+					</div>
+					<div class="ui divider"></div>
+				{% endfor %}
+			</div>
+			<div class="ui segment">
+				<form class="ui form" method="POST">
+					{% csrf_token %}
+					<label>Comment:</label>
+					<div>{{ form.errors }}</div>
+					{{form.comment}}
+					<button class="ui circular inverted blue button" type="submit">Commit</button>
+				</form>
+			</div>
+		</div>
+		<div class="four wide column">
+		</div>
+	</div>
+
+{% endblock %}

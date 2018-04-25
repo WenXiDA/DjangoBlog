@@ -1,0 +1,53 @@
+.ui.vertical.inverted.basic.segment {
+    padding-top: 0;
+    padding-bottom: 0;
+
+}
+
+.ui.inverted.menu {
+	height: 36px;
+	line-height: 36px;
+	width: 1090px;
+	margin: 0 auto;
+	position: relative;
+}
+.ui.text.menu {
+	margin: 0;
+}
+.ui.basic.padded.segment {
+	width: 1090px;
+	position: relative;
+	left: 25%;
+}
+/* .ui.image.right {
+	float: right;
+
+} */
+.left {
+	margin-bottom: 5px;
+	font-size: 20px;
+	color: #666;
+}
+.price {
+	padding-top:13px; 
+	font-size: 14px;
+	display: inline-block;
+	color: #666;
+	position: relative;
+	z-index: 3;
+	border-top: solid 1px #666;
+	width: auto;
+}
+.column.right{
+	position: relative;
+}
+.ui.image.right {
+	position: relative;
+	left: 100%;
+	transform: translate(-100%, 0);
+}
+
+.ui.basic.segment.des {
+	position: relative;
+	margin: 0 auto;
+}

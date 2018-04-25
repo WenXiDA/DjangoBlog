@@ -1,0 +1,21 @@
+
+.login {
+	margin-top: 50px;
+	width: 300px;
+	position: relative;
+ 	transform: translate(-50%, 0%);
+ 	left: 50%;
+}
+
+.ui.form.login{
+
+	padding: 10px;
+	width: 300px;
+	border: solid 1px rgba(34, 36, 38, .15);
+}
+.login >.ui.circular.button {
+	margin-top: 5px;
+	position: relative;
+ 	transform: translate(-50%, 0%);
+ 	left: 50%;
+}

@@ -1,0 +1,27 @@
+
+
+{% extends '__base__.html' %}
+{% load summary_wordcount %}
+
+{% block title %}日志{% endblock %}
+{% block beforehead %}
+<link rel="stylesheet" type="text/css" href="../static/css/content.css" charset="utf-8">
+{% endblock %}
+
+{% block content %}
+	<div class="ui grid">
+		<div class="twelve wide column ">
+			{% for blog in blogs %}
+				<div class="ui basic segment">
+					<h2 class="ui header title"><a href="{% url 'blog' blog.name %}">{{blog.name}}</a></h2>
+					<p class="blog_summary">{{blog.summary|slice_words:"150"}}</p>
+					<p><a href="{% url 'blog' blog.name %}">继续阅读<i class="angle double right icon"></i></a></p>
+					<div class="ui divider"></div>
+				</div>
+			{% endfor %}
+		</div>
+		<div class="four wide column">
+		</div>
+	</div>
+
+{% endblock %}
