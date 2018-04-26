@@ -16,13 +16,19 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from firstapp import views
-
+from firstapp.coreweb import ResponseHandler
+#这里可以做一个类，实现__callable__()方法，来检验是否登录或者参数是否合理，则调用如下
+#path(r'test', ValidClass(views.test),name="test"),
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path(r'blogs', views.blogs, name="blogs"),
-    path(r'regist', views.regist),
-    path(r'login', views.login),
-    path(r'logout', views.logout,name="logout"),
-    path(r'blog/<str:name>', views.blog,name="blog"),
-    path(r'test', views.test,name="test"),
+    path(r'blogs', ResponseHandler(views.blogs), name="blogs"),
+    path(r'regist', ResponseHandler(views.regist)),
+    path(r'login', ResponseHandler(views.login),name = "login"),
+    path(r'logout', ResponseHandler(views.logout),name="logout"),
+    path(r'blog/<str:name>', ResponseHandler(views.blog),name="blog"),
+    path(r'myblogs', ResponseHandler(views.myblogs),name="myblogs"),
+    path(r'myblog/<str:name>', ResponseHandler(views.myblog),name="myblog"),
+    path(r'myblog/edit/<str:blog_name>', ResponseHandler(views.myblog_edit),name="myblog_edit"),
+    path(r'myblog/del/<str:name>', ResponseHandler(views.myblog_del),name="myblog_del"),
+    path(r'test', ResponseHandler(views.test),name="test"),
 ]

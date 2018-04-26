@@ -1,15 +1,17 @@
+
 <!DOCTYPE html>
+{% load staticfiles %}
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
 	{% block meta %}<!--block meta--> {% endblock %}
 	<title>{% block title %}?{% endblock %}-Blog</title>
-	<link rel="stylesheet" type="text/css" href="../static/css/semantic.min.css" charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/semantic.min.css' %}" charset="utf-8">
 	<script src="https://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
-	<script type="text/javascript" src="../static/js/semantic.min.js"></script>
-	<script type="text/javascript" src="../static/js/index.js"></script>
-	<link rel="stylesheet" type="text/css" href="../static/css/header.css" charset="utf-8">
-	<link rel="stylesheet" type="text/css" href="../static/css/footer.css" charset="utf-8">
+	<script type="text/javascript" src="{% static 'js/semantic.min.js' %}"></script>
+	<script type="text/javascript" src="{% static 'js/index.js' %}"></script>
+	<link rel="stylesheet" type="text/css" href="{% static 'css/header.css' %}" charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/footer.css' %}" charset="utf-8">
 	{% block beforehead %}  <!--before head-->{% endblock %}
 </head>
 <body>
@@ -22,6 +24,7 @@
 				<a href="/blogs" class="item awesome"><i class="home icon"></i>日志</a>
 				<a href="#" class="item awesome"><i class="book icon"></i>教程</a>
 				<a href="#" class="item awesome"><i class="code icon"></i>源码</a>
+				<a href="#" class="item awesome"><i class="edit icon"></i>写博客</a>
 				<div class="right menu">
 					{% if request.session.user %}
 						<div class="ui dropdown item">
@@ -29,6 +32,7 @@
 							<span>{{request.session.user}}</span>
 							<div class="menu">
 								<a href="{% url 'logout' %}" class="item">登出</a>
+								<a href="{% url 'myblogs' %}" class="item">我的博客</a>
 							</div>
 						</div>
 					{% else %}
@@ -39,9 +43,49 @@
 			</div>
 		</div>
 
-		<div id="content" class="ui container">
+		<div id="content" class="ui container" style="width: 90%;">
 			{% block content %}
-			
+				<div class="ui grid">
+					<div class="twelve wide column ">
+						{% block blog %}
+						{% endblock %}
+					</div>
+					<div class="four wide column">
+						<div class="ui basic very padded segment  ">
+							<div class="ui list">
+								<div class="item header">
+									<div class="content">
+										<h2 class="ui header">友情链接</h2>
+									</div>
+								</div>
+								<div class="item">
+									<i class="pointing right icon"></i>
+									<div class="content">
+										<a href="#">编程</a>
+									</div>
+								</div>
+								<div class="item">
+									<i class="pointing right icon"></i>
+									<div class="content">
+										<a href="#">读书</a>
+									</div>
+								</div>
+								<div class="item">
+									<i class="pointing right icon"></i>
+									<div class="content">
+										<a href="#">Python教程</a>
+									</div>
+								</div>
+								<div class="item">
+									<i class="pointing right icon"></i>
+									<div class="content">
+										<a href="#">Git教程</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
 				<!-- content -->
 			{% endblock %}
 		</div>
@@ -55,7 +99,7 @@
 			</div>
 
 			<div class="ui basic segment intr">
-				<p>Powered by <a href="#">Awesome Python Webapp</a>. Copyright &copy; 2014. [<a href="/manage/" target="_blank">Manage</a>]</p>
+				<p>Powered by <a href="#">Awesome Python Webapp</a>. Copyright &copy; 2018. [<a href="/manage/" target="_blank">Manage</a>]</p>
 			</div>
 
 			<div class="ui basic segment intr">

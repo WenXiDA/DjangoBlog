@@ -59,6 +59,29 @@ class CommentForm(forms.Form):
 		strip = True
 		)
 
+
+class BlogForm(forms.Form):
+	blog_name = forms.CharField(
+		required = True,
+		min_length = 1,
+		error_messages = {"required":"comment can not be empty"},
+		strip = True
+		)
+	blog_summary = forms.CharField(
+		required = True,
+		widget = widgets.Textarea(attrs = {"class":"form-control"}),
+		min_length = 5,
+		error_messages = {"required":"comment can not be empty"},
+		strip = True
+		)
+	blog_content = forms.CharField(
+		required = True,
+		widget = widgets.Textarea(attrs = {"class":"form-control"}),
+		min_length = 5,
+		error_messages = {"required":"comment can not be empty"},
+		strip = True
+		)
+
 class TestForm(forms.Form):
 	comment = fields.CharField(
 		required = True,

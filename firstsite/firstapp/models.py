@@ -1,15 +1,6 @@
 from django.db import models
 
 # Create your models here.
-class Blog(models.Model):
-    """docstring for [object Object]."""
-    user_name = models.CharField(null = True, blank = True, max_length = 50 )
-    name = models.CharField(null = True, blank = True, max_length = 50 )
-    summary = models.TextField(null =True)
-    content = models.TextField(null =True)
-    def __str__(self):
-        return self.name
-
 class User(models.Model):
     """docstring for [object Object]."""
 
@@ -18,6 +9,17 @@ class User(models.Model):
     email = models.CharField(null = True, blank = True, max_length = 50)
     def __str__(self):
         return self.name
+
+class Blog(models.Model):
+    """docstring for [object Object]."""
+    user_name = models.ForeignKey(to = User, related_name = "under_blog",on_delete=models.CASCADE, null = True, blank = True )
+    name = models.CharField(null = True, blank = True, max_length = 50 )
+    summary = models.TextField(null =True)
+    content = models.TextField(null =True)
+    def __str__(self):
+        return self.name
+
+
 
 class Comment(models.Model):
     """docstring for [object Object]."""

@@ -10,9 +10,9 @@ from django.contrib.auth.decorators import login_required
 
 def path_to_session(func):
 	def wrapper(*args,**kw):
-		print(args[0].session["url"])
-		print(args[0].path)
-		if args[0].session["url"]:
+		# print(args[0].path)
+		if args[0].session.get("url"):
+			print(args[0].session["url"])
 			del args[0].session["url"]
 		args[0].session["url"] = args[0].path
 		print(args[0].session["url"])
@@ -46,6 +46,7 @@ def blog(request,name):
 
 
 def regist(request):
+	request.session.clear()
 	user = None
 	if request.method == "GET":
 		form = my_form.RegistForm
@@ -59,7 +60,7 @@ def regist(request):
 			user.save()
 			request.session["is_login"] = True
 			request.session["user"] = user_name
-			return redirect(to=request.session["url"])
+			return redirect(to=request.session["url"]) if request.session.get("url") else redirect(to="blogs")
 	context = {}
 	context["form"] = form
 	context["user"] = user
@@ -67,6 +68,7 @@ def regist(request):
 
 
 def login(request):
+	request.session.clear()
 	if request.method == "GET":
 		form = my_form.LoginForm
 	if request.method == "POST":
@@ -79,7 +81,7 @@ def login(request):
 				if user.name == user_name and user.passwd == pass_word:
 					request.session["is_login"] = True
 					request.session["user"] = user_name
-					return redirect(to=request.session["url"])
+					return redirect(to=request.session["url"]) if request.session.get("url") else redirect(to="blogs")
 				else:
 					form.errors["用户名和密码错误"] = ""
 		else:
@@ -96,21 +98,21 @@ def login(request):
 
 def logout(request):
 	# print("request.session.__dict__------------------>",request.session.__dict__)
-	print("request.session['url']------------------>",request.session["url"])
+	print("request.session['url']------------------>",request.session.get("url"))
 	try:
 		del request.session["is_login"]
 		del request.session["user"]
 	except KeyError:
 		pass
-	return redirect(to=request.session["url"])
+	return redirect(to=request.session["url"]) if request.session.get("url") else redirect(to="blogs")
 
-@path_to_session
+
 def discuss(request,belong):
 	if request.method == "GET":
 		form = my_form.CommentForm()
 	if request.method == "POST":
 		form = my_form.CommentForm(request.POST)
-		logging.info("belong--->",belong)
+		print("belong--->",belong)
 		if form.is_valid():
 			user_name = request.session.get("user")
 			if user_name:
@@ -124,6 +126,80 @@ def discuss(request,belong):
 				print("errors--->",form.errors)
 	print("form--->",form)
 	return form
+
+
+def myblogs(request):
+	user_name = request.session.get("user")
+	if user_name:
+		context = {}
+		user = User.objects.get(name=user_name)
+		blogs = user.under_blog.all
+		context["blogs"] = blogs
+		return render(request, "myblogs.html", context)
+	else:
+		return redirect(to="login")
+
+
+def myblog(request,name):
+	user_name = request.session.get("user")
+	if user_name:
+		print("belong blog--->",name)
+		blog = Blog.objects.get(name = name)
+		form = discuss(request,blog)
+		if isinstance(form,forms.Form):
+			return render(request, "blog.html", {"blog":blog,"form":form})
+		else:
+			return form
+	else:
+		return redirect(to="login")
+
+
+def myblog_del(request,name):
+	if request.session.get("user"):
+		blog = Blog.objects.get(name = name)
+		blog.delete()
+		print("delete ok")
+		return redirect(to="myblogs")
+	else:
+		return redirect(to="login")
+
+
+def myblog_edit(request,blog_name):
+	if request.session.get("user"):
+		blog = Blog.objects.get(name = blog_name)
+		if request.method == "GET":
+			form = my_form.BlogForm({"blog_name":blog.name,"blog_summary":blog.summary,"blog_content":blog.content})
+			print(dir(form))
+			print("myblog_edit________________>",form)
+		if request.method == "POST":
+			form = my_form.BlogForm(request.POST)
+			if request.session.get("user") and form.is_valid():
+				data = form.cleaned_data
+				blog.name = data["blog_name"]
+				blog.summary = data["blog_summary"]
+				blog.content = data["blog_content"]
+				print("===="*30)
+				blog.save()
+				return redirect(to="myblog",name = blog.name)
+			else:
+				return redirect(to="login")
+		return render(request, "myblog_edit.html", {"form":form,"blog":blog})
+	else:
+		return redirect(to="login")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 def test(request):

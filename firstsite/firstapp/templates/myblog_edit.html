@@ -1,0 +1,23 @@
+
+
+{% extends '__base__.html' %}
+{% load staticfiles %}
+
+{% block title %}博客{% endblock %}
+{% block beforehead %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/content.css' %}" charset="utf-8">
+{% endblock %}
+{% block blog %}
+	<div class="ui basic segment">
+		<form class="ui form" method="POST">
+			{% csrf_token %}
+			<h2 class="ui header blog_title">标题</h2>
+			{{ form.blog_name }}
+			<h2 class="ui header blog_summary">描述</h2>
+			{{ form.blog_summary }}
+			<h2 class="ui header blog_content">内容</h2>
+			{{ form.blog_content }}
+			<button class="ui circular blue button" type="submit">确认</button>
+		</form>
+	</div>
+{% endblock %}

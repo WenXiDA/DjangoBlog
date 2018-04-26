@@ -1,0 +1,40 @@
+
+body,html {
+margin: 0;
+padding: 0;
+height:100%;
+}
+#main {
+background:#eee;
+min-height: 100%;
+position: relative;
+}
+
+
+#content {
+padding-bottom: 300px;/*高度等于footer的高度*/
+
+}
+
+#footer {
+position:absolute;
+bottom:0;
+width:100%;
+height:200px;/* Height of the footer */
+background: #eee;
+}
+
+
+#footer > .ui.basic.segment.intr{
+	text-align: center;
+	margin-top: 0px;
+	padding: 0px;
+}
+.ui.basic.horizontal.segment {
+	font-size: 20px;
+	text-align: center;
+	padding-top: 20px;
+	padding-bottom:0px;
+	border-top: solid 1px rgba(34,36,38,.15)
+}
+
