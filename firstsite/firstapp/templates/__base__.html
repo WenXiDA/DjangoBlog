@@ -21,10 +21,10 @@
 				<div class="item">
 					<span id="awesome">Awesome</span>
 				</div>
-				<a href="/blogs" class="item awesome"><i class="home icon"></i>日志</a>
-				<a href="#" class="item awesome"><i class="book icon"></i>教程</a>
-				<a href="#" class="item awesome"><i class="code icon"></i>源码</a>
-				<a href="#" class="item awesome"><i class="edit icon"></i>写博客</a>
+				<a href="{% url 'blogs' %}" class="item awesome"><i class="home icon"></i>日志</a>
+				<a href="http://www.liaoxuefeng.com/" class="item awesome"><i class="book icon"></i>教程</a>
+				<a href="https://github.com/WenXiDA/DjangoBlog" class="item awesome"><i class="code icon"></i>源码</a>
+				<a href="{% url 'edit_blog'  %}" class="item awesome"><i class="edit icon"></i>写博客</a>
 				<div class="right menu">
 					{% if request.session.user %}
 						<div class="ui dropdown item">
@@ -36,8 +36,8 @@
 							</div>
 						</div>
 					{% else %}
-						<a href="/login" class="item"><i></i>登录</a>
-						<a href="/regist" class="item"><i></i>注册</a>
+						<a href="{% url 'login' %}" class="item"><i></i>登录</a>
+						<a href="{% url 'regist' %}" class="item"><i></i>注册</a>
 					{% endif %}
 				</div>
 			</div>

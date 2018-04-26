@@ -22,13 +22,14 @@ from firstapp.coreweb import ResponseHandler
 urlpatterns = [
     path('admin/', admin.site.urls),
     path(r'blogs', ResponseHandler(views.blogs), name="blogs"),
-    path(r'regist', ResponseHandler(views.regist)),
+    path(r'regist', ResponseHandler(views.regist), name = "regist"),
     path(r'login', ResponseHandler(views.login),name = "login"),
     path(r'logout', ResponseHandler(views.logout),name="logout"),
     path(r'blog/<str:name>', ResponseHandler(views.blog),name="blog"),
     path(r'myblogs', ResponseHandler(views.myblogs),name="myblogs"),
     path(r'myblog/<str:name>', ResponseHandler(views.myblog),name="myblog"),
     path(r'myblog/edit/<str:blog_name>', ResponseHandler(views.myblog_edit),name="myblog_edit"),
+    path(r'edit_blog', ResponseHandler(views.myblog_edit),name="edit_blog"),
     path(r'myblog/del/<str:name>', ResponseHandler(views.myblog_del),name="myblog_del"),
     path(r'test', ResponseHandler(views.test),name="test"),
 ]

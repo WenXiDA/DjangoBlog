@@ -142,14 +142,19 @@ def myblogs(request):
 
 def myblog(request,name):
 	user_name = request.session.get("user")
+	print("belong blog--->",user_name)
 	if user_name:
 		print("belong blog--->",name)
-		blog = Blog.objects.get(name = name)
-		form = discuss(request,blog)
-		if isinstance(form,forms.Form):
-			return render(request, "blog.html", {"blog":blog,"form":form})
-		else:
-			return form
+		try:
+			blog = Blog.objects.get(name = name)
+			print("myblog------------->blog:",blog)
+			form = discuss(request,blog)
+			if isinstance(form,forms.Form):
+				return render(request, "blog.html", {"blog":blog,"form":form})
+			else:
+				return form
+		except:
+			raise
 	else:
 		return redirect(to="login")
 
@@ -164,26 +169,45 @@ def myblog_del(request,name):
 		return redirect(to="login")
 
 
-def myblog_edit(request,blog_name):
-	if request.session.get("user"):
-		blog = Blog.objects.get(name = blog_name)
-		if request.method == "GET":
-			form = my_form.BlogForm({"blog_name":blog.name,"blog_summary":blog.summary,"blog_content":blog.content})
-			print(dir(form))
-			print("myblog_edit________________>",form)
-		if request.method == "POST":
-			form = my_form.BlogForm(request.POST)
-			if request.session.get("user") and form.is_valid():
-				data = form.cleaned_data
-				blog.name = data["blog_name"]
-				blog.summary = data["blog_summary"]
-				blog.content = data["blog_content"]
-				print("===="*30)
-				blog.save()
-				return redirect(to="myblog",name = blog.name)
-			else:
-				return redirect(to="login")
-		return render(request, "myblog_edit.html", {"form":form,"blog":blog})
+def myblog_edit(request,blog_name = None):
+	user = request.session.get("user")
+	if user:
+		if blog_name:
+			blog = Blog.objects.get(name = blog_name)
+			if request.method == "GET":
+				form = my_form.BlogForm({"blog_name":blog.name,"blog_summary":blog.summary,"blog_content":blog.content})
+				print(dir(form))
+				print("myblog_edit________________>",form)
+			if request.method == "POST":
+				form = my_form.BlogForm(request.POST)
+				if request.session.get("user") and form.is_valid():
+					data = form.cleaned_data
+					blog.name = data["blog_name"]
+					blog.summary = data["blog_summary"]
+					blog.content = data["blog_content"]
+					print("===="*30)
+					blog.save()
+					return redirect(to="myblog",name = blog.name)
+				else:
+					return redirect(to="login")
+		else:
+			if request.method == "GET":
+				form = my_form.BlogForm
+			if request.method == "POST":
+				form = my_form.BlogForm(request.POST)
+				if request.session.get("user") and form.is_valid():
+					data = form.cleaned_data
+					blog = Blog(
+						user_name = User.objects.get(name = user),
+						name =data["blog_name"],
+						summary = data["blog_summary"],
+						content = data["blog_content"]
+						)
+					blog.save()
+					return redirect(to="myblog",name = blog.name)
+				else:
+					return redirect(to="login")
+		return render(request, "myblog_edit.html", {"form":form})
 	else:
 		return redirect(to="login")
 

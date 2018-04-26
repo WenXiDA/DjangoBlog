@@ -1,4 +1,4 @@
-
+from django.http import Http404
 
 class ResponseHandler(object):
 	def __init__(self,fn):
@@ -10,6 +10,6 @@ class ResponseHandler(object):
 		try:
 			r =  self._func(*args, **kw)
 			return r
-		except:
-			print("404")
-			pass
+		except :
+			print(404)
+			return Http404("网页走丢了")
