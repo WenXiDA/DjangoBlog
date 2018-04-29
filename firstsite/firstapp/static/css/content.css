@@ -9,3 +9,7 @@
 .errorlist{
 	color: red;
 }
+#current_page {
+	color: white;
+	background: #4183c4;
+}

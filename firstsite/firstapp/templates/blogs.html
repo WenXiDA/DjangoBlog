@@ -2,7 +2,7 @@
 
 {% extends '__base__.html' %}
 {% load summary_wordcount %}
-
+{% load pagetag %}
 {% block title %}日志{% endblock %}
 {% block beforehead %}
 <link rel="stylesheet" type="text/css" href="../static/css/content.css" charset="utf-8">
@@ -17,4 +17,32 @@
 			<div class="ui divider"></div>
 		</div>
 	{% endfor %}
+{% endblock %}
+
+{% block pager %}
+	<div class="ui center aligned very padded vertical segment container ">
+		<div class="ui pagination white  menu">
+			{% if page.has_prevoius %}
+				<a href="?page={{ page.prev_page }}" class="item">
+					<i class="angle blue double left icon"></i>
+				</a>
+			{% else %}
+				<div href="?page={{ page.start_index }}" class="disabled item">
+					<i class="angle double left icon"></i>
+				</div>
+			{% endif %}
+			{% for pg in page.page_range %}
+				{% circle_page page pg %}
+			{% endfor %}
+			{% if page.has_next %}
+				<a href="?page={{ page.next_page }}" class="item">
+					<i class="angle blue double right icon"></i>
+				</a>
+			{% else %}
+				<div  class="disabled item">
+					<i class="angle double right icon"></i>
+				</div>
+			{% endif %}
+		</div>
+	</div>
 {% endblock %}

@@ -12,10 +12,14 @@ position: relative;
 
 
 #content {
-padding-bottom: 300px;/*高度等于footer的高度*/
+padding-bottom:0px;/*高度等于footer的高度*/
 
 }
 
+.pager {
+padding-bottom:200px;/*高度等于footer的高度*/
+
+}
 #footer {
 position:absolute;
 bottom:0;

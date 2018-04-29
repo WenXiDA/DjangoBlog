@@ -6,7 +6,9 @@ from firstapp import my_form
 from django.core.exceptions import ValidationError
 import logging;logging.basicConfig(level=logging.INFO)
 from django.contrib.auth.decorators import login_required
+from firstapp.coreweb import Pager
 # Create your views here.
+
 
 def path_to_session(func):
 	def wrapper(*args,**kw):
@@ -29,8 +31,14 @@ def blogs(request):
 	# except KeyError:
 	# 	user = None
 	context = {}
-	blogs = Blog.objects.all()
+	blogs_count = Blog.objects.count()
+	page_index = int(request.GET.get("page",1))
+	print(page_index)
+	page = Pager(blogs_count,page_index)
+	blogs = Blog.objects.all()[page.offset:page.limit]
+	print("blogs===================>",blogs)
 	context["blogs"] = blogs
+	context["page"] = page
 	# context["user"] = user
 	return render(request, "blogs.html", context)
 
@@ -133,7 +141,13 @@ def myblogs(request):
 	if user_name:
 		context = {}
 		user = User.objects.get(name=user_name)
-		blogs = user.under_blog.all
+		blogs_count = Blog.objects.count()
+		page_index = int(request.GET.get("page",1))
+		print(page_index)
+		page = Pager(blogs_count,page_index)
+		blogs = Blog.objects.all()[page.offset:page.limit]
+		print("blogs===================>",blogs)
+		context["page"] = page
 		context["blogs"] = blogs
 		return render(request, "myblogs.html", context)
 	else:
