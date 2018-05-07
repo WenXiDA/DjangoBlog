@@ -17,6 +17,13 @@
 			{{ form.blog_summary }}
 			<h2 class="ui header blog_content">内容</h2>
 			{{ form.blog_content }}
+            <h2 class="ui header blog_content">Cate</h2>
+            <div class="ui basic menu" style="border:none;">
+                <div class="item">{{ form.news }}<label>News</label></div>
+                <div class="item">{{ form.editors }}Editors</div>
+            </div>
+
+
 			<button class="ui circular blue button" type="submit">确认</button>
 		</form>
 	</div>

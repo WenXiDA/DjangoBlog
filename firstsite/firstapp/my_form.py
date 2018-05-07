@@ -81,6 +81,14 @@ class BlogForm(forms.Form):
 		error_messages = {"required":"comment can not be empty"},
 		strip = True
 		)
+	news = forms.CharField(
+	    required = False,
+	    widget = widgets.CheckboxInput(attrs = {"class":"form-control","value":"news"})
+       )
+	editors = forms.CharField(
+	    required = False,
+	    widget = widgets.CheckboxInput(attrs = {"value":"editors"})
+       )
 
 class TestForm(forms.Form):
 	comment = fields.CharField(

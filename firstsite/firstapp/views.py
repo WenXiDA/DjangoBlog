@@ -1,3 +1,4 @@
+# coding:utf8
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from django import forms
@@ -24,18 +25,25 @@ def path_to_session(func):
 
 
 @path_to_session
-def blogs(request):
-	# try:
-	# 	user_name = request.session["user"]
-	# 	user = User.objects.filter(name=user_name).first()
-	# except KeyError:
-	# 	user = None
+def blogs(request, cate = None):
+	if cate =="editors":
+		blogs = Blog.objects.filter(editors_choice = True)
+		blogs_count = len(blogs)
+	elif cate == "news":
+		blogs = Blog.objects.filter(news_choice = True)
+		blogs_count = len(blogs)
+	else:
+		blogs_count = Blog.objects.count()
 	context = {}
-	blogs_count = Blog.objects.count()
 	page_index = int(request.GET.get("page",1))
 	print(page_index)
 	page = Pager(blogs_count,page_index)
-	blogs = Blog.objects.all()[page.offset:page.limit]
+	if cate =="editors":
+		blogs = blogs[page.offset:page.limit]
+	elif cate == "news":
+		blogs = blogs[page.offset:page.limit]
+	else:
+		blogs = Blog.objects.all()[page.offset:page.limit]
 	print("blogs===================>",blogs)
 	context["blogs"] = blogs
 	context["page"] = page
@@ -136,23 +144,35 @@ def discuss(request,belong):
 	return form
 
 
-def myblogs(request):
+def myblogs(request,cate = None):
 	user_name = request.session.get("user")
 	if user_name:
-		context = {}
 		user = User.objects.get(name=user_name)
-		blogs_count = Blog.objects.count()
+		if cate =="editors":
+			blogs = Blog.objects.filter(editors_choice = True, user_name = user)
+			blogs_count = len(blogs)
+		elif cate == "news":
+			blogs = Blog.objects.filter(news_choice = True, user_name = user)
+			blogs_count = len(blogs)
+		else:
+			blogs = Blog.objects.filter(user_name = user)
+			blogs_count = len(blogs)
+		context = {}
 		page_index = int(request.GET.get("page",1))
 		print(page_index)
 		page = Pager(blogs_count,page_index)
-		blogs = Blog.objects.all()[page.offset:page.limit]
-		print("blogs===================>",blogs)
+		if cate =="editors":
+			blogs = blogs[page.offset:page.limit]
+		elif cate == "news":
+			blogs = blogs[page.offset:page.limit]
+		else:
+			blogs = blogs[page.offset:page.limit]
+		print("myblogs===================>",blogs)
 		context["page"] = page
 		context["blogs"] = blogs
 		return render(request, "myblogs.html", context)
 	else:
 		return redirect(to="login")
-
 
 def myblog(request,name):
 	user_name = request.session.get("user")
@@ -215,7 +235,9 @@ def myblog_edit(request,blog_name = None):
 						user_name = User.objects.get(name = user),
 						name =data["blog_name"],
 						summary = data["blog_summary"],
-						content = data["blog_content"]
+						content = data["blog_content"],
+						news_choice = data["news"],
+						editors_choice = data["editors"]
 						)
 					blog.save()
 					return redirect(to="myblog",name = blog.name)
@@ -240,7 +262,7 @@ def myblog_edit(request,blog_name = None):
 
 
 
-def test(request):
+def test(request, cate = None):
 	if request.method == "GET":
 		form = my_form.TestForm
 		print("form get--->",form)

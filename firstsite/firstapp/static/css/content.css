@@ -13,3 +13,22 @@
 	color: white;
 	background: #4183c4;
 }
+
+.ui.basic.bottom.attached.segment {
+    padding-bottom: 0px;
+}
+
+.ui.basic.segment.blogs {
+    padding-bottom: 0PX;
+    margin-bottom: 0PX;
+}
+.ui.basic.segment.blogs > .ui.divider{
+    margin-bottom: -2px;
+}
+#cate{
+ width: 40%;
+ position: relative;
+ transform: translate(-50%,0);
+ left: 50%;
+ border: none;
+}

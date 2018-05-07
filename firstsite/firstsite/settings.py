@@ -25,7 +25,7 @@ SECRET_KEY = 'd4zb&^m+7!3wwvz#bm0_lza20x)eyq==3^uvg*m=f3#usl4m_n'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -88,9 +88,10 @@ WSGI_APPLICATION = 'firstsite.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
+        # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
         'NAME': 'awesome',
         'USER': 'root', #你的数据库用户名
-        'PASSWORD': 'lsy1', #你的数据库密码
+        'PASSWORD': 'root', #你的数据库密码
         'HOST': '', #你的数据库主机，留空默认为localhost
         'PORT': '3306', #你的数据库端口
     }

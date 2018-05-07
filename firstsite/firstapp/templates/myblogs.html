@@ -9,20 +9,38 @@
 {% endblock %}
 
 {% block blog %}
-	{% for blog in blogs %}
-		<div class="ui basic segment">
-			<div class="ui text menu">
-				<h2 class="ui header title"><a href="{% url 'myblog' blog.name %}">{{blog.name}}</a></h2>
-				<div class="right menu">
-					<a href="{% url 'myblog_edit' blog.name %}" class="item">编辑</a>
-					<a href="{% url 'myblog_del' blog.name %}" class="item">删除</a>
-				</div>
-			</div>
-			<p class="blog_summary">{{blog.summary|slice_words:"150"}}</p>
-			<p><a href="{% url 'myblog' blog.name %}">继续阅读<i class="angle double right icon"></i></a></p>
-			<div class="ui divider"></div>
-		</div>
-	{% endfor %}
+
+    <div class="ui top attached tabular  menu">
+        {%  if 'editors' in request.path %}
+            <a href="{% url 'myblogs' %}" class="item">ALL</a>
+            <a href="{% url 'myblogs' %}news" class="item">News</a>
+            <a href="{% url 'myblogs' %}editors" class="active item">Editor`s</a>
+        {%  elif 'news' in request.path %}
+            <a href="{% url 'myblogs' %}" class="item">ALL</a>
+            <a href="{% url 'myblogs' %}news" class="active item">News</a>
+            <a href="{% url 'myblogs' %}editors" class="item">Editor`s</a>
+        {%  else %}
+            <a href="{% url 'myblogs' %}" class="active item">ALL</a>
+            <a href="{% url 'myblogs' %}news" class="item">News</a>
+            <a href="{% url 'myblogs' %}editors" class="item">Editor`s</a>
+        {% endif %}
+    </div>
+    <div class="ui basic bottom attached  segment">
+    	{% for blog in blogs %}
+    		<div class="ui basic segment">
+    			<div class="ui text menu">
+    				<h2 class="ui header title"><a href="{% url 'myblog' blog.name %}">{{blog.name}}</a></h2>
+    				<div class="right menu">
+    					<a href="{% url 'myblog_edit' blog.name %}" class="item">编辑</a>
+    					<a href="{% url 'myblog_del' blog.name %}" class="item">删除</a>
+    				</div>
+    			</div>
+    			<p class="blog_summary">{{blog.summary|slice_words:"150"}}</p>
+    			<p><a href="{% url 'myblog' blog.name %}">继续阅读<i class="angle double right icon"></i></a></p>
+    			<div class="ui divider"></div>
+    		</div>
+    	{% endfor %}
+    </div>
 {% endblock %}
 {% block pager %}
 	<div class="ui center aligned very padded vertical segment container ">

@@ -16,7 +16,7 @@ class ResponseHandler(object):
 
 
 class Pager(object):
-	def __init__(self,item_count, page_index = 1,page_size = 6):
+	def __init__(self,item_count, page_index = 1,page_size = 3):
 		self.item_count = item_count
 		self.page_size = page_size
 		self.page_count = item_count //page_size +(1 if item_count % page_size >0 else 0)
@@ -24,16 +24,20 @@ class Pager(object):
 		self.end_index = self.page_count
 		self.page_range = range(1,self.page_count+1)
 		print("page_index > self.page_count=============>",page_index > self.page_count)
-		if item_count == 0 or (page_index > self.page_count) or page_index < 1:
-			# self.offset = 0
-			# self.limit = page_size
+		if item_count == 0:
+			self.offset = 0
+			self.limit = 0
 			self.page_index = 1
+		elif (page_index > self.page_count) or page_index < 1:
+			self.page_index = 1
+			self.offset = (self.page_index - 1 )* self.page_size
+			self.limit = self.page_index * self.page_size
 		else:
 			self.page_index = page_index
 			# self.offset = (page_index - 1 )* self.page_size
 			# self.limit = (page_index - 1 )* self.page_size + page_size
-		self.offset = (self.page_index - 1 )* self.page_size
-		self.limit = self.page_index * self.page_size
+			self.offset = (self.page_index - 1 )* self.page_size
+			self.limit = self.page_index * self.page_size
 		print("self.offset=================>",self.offset)
 		print("self.limit=================>",self.limit)
 		print("self.page_index < self.page_count===============>",self.page_index < self.page_count)

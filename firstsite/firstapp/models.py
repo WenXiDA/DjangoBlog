@@ -13,9 +13,11 @@ class User(models.Model):
 class Blog(models.Model):
     """docstring for [object Object]."""
     user_name = models.ForeignKey(to = User, related_name = "under_blog",on_delete=models.CASCADE, null = True, blank = True )
-    name = models.CharField(null = True, blank = True, max_length = 50 )
+    name = models.CharField(null = True, blank=True, max_length = 50 )
     summary = models.TextField(null =True)
     content = models.TextField(null =True)
+    news_choice = models.NullBooleanField()
+    editors_choice = models.NullBooleanField()
     def __str__(self):
         return self.name
 
