@@ -26,29 +26,29 @@ def path_to_session(func):
 
 @path_to_session
 def blogs(request, cate = None):
-	if cate =="editors":
-		blogs = Blog.objects.filter(editors_choice = True)
-		blogs_count = len(blogs)
-	elif cate == "news":
-		blogs = Blog.objects.filter(news_choice = True)
-		blogs_count = len(blogs)
-	else:
-		blogs_count = Blog.objects.count()
-	context = {}
-	page_index = int(request.GET.get("page",1))
-	print(page_index)
-	page = Pager(blogs_count,page_index)
-	if cate =="editors":
-		blogs = blogs[page.offset:page.limit]
-	elif cate == "news":
-		blogs = blogs[page.offset:page.limit]
-	else:
-		blogs = Blog.objects.all()[page.offset:page.limit]
-	print("blogs===================>",blogs)
-	context["blogs"] = blogs
-	context["page"] = page
+	# if cate =="editors":
+	# 	blogs = Blog.objects.filter(editors_choice = True)
+	# 	blogs_count = len(blogs)
+	# elif cate == "news":
+	# 	blogs = Blog.objects.filter(news_choice = True)
+	# 	blogs_count = len(blogs)
+	# else:
+	# 	blogs_count = Blog.objects.count()
+	# context = {}
+	# page_index = int(request.GET.get("page",1))
+	# print(page_index)
+	# page = Pager(blogs_count,page_index)
+	# if cate =="editors":
+	# 	blogs = blogs[page.offset:page.limit]
+	# elif cate == "news":
+	# 	blogs = blogs[page.offset:page.limit]
+	# else:
+	# 	blogs = Blog.objects.all()[page.offset:page.limit]
+	# print("blogs===================>",blogs)
+	# context["blogs"] = blogs
+	# context["page"] = page
 	# context["user"] = user
-	return render(request, "blogs.html", context)
+	return render(request, "blogs.html", {})
 
 @path_to_session
 def blog(request,name):
@@ -219,6 +219,8 @@ def myblog_edit(request,blog_name = None):
 					blog.name = data["blog_name"]
 					blog.summary = data["blog_summary"]
 					blog.content = data["blog_content"]
+					blog.news_choice = data["news"]
+					blog.editors_choice = data["editors"]
 					print("===="*30)
 					blog.save()
 					return redirect(to="myblog",name = blog.name)
@@ -275,4 +277,5 @@ def test(request, cate = None):
 			return redirect(to="test")
 		print("form--->",form)
 		print("form errors--->",form.errors)
-	return render(request,"test.html",{"form":form})
+	print("This is test view. Thanks!")
+	return render(request,"test.html",{})

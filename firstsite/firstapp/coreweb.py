@@ -1,5 +1,6 @@
 from django.http import Http404
 
+
 class ResponseHandler(object):
 	def __init__(self,fn):
 		self._func = fn

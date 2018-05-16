@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import path, re_path
 from firstapp import views
 from firstapp.coreweb import ResponseHandler
+from firstapp.api import blogs
 #这里可以做一个类，实现__callable__()方法，来检验是否登录或者参数是否合理，则调用如下
 #path(r'test', ValidClass(views.test),name="test"),
 urlpatterns = [
@@ -33,5 +34,7 @@ urlpatterns = [
     path(r'myblog/edit/<str:blog_name>', ResponseHandler(views.myblog_edit),name="myblog_edit"),
     path(r'edit_blog', ResponseHandler(views.myblog_edit),name="edit_blog"),
     path(r'myblog/del/<str:name>', ResponseHandler(views.myblog_del),name="myblog_del"),
-    path(r'test', ResponseHandler(views.test),name="test"),
+    path(r'api/blogs/',blogs,name="api_blogs"),
+    path(r'api/blogs/<str:cate>',blogs,name="api_blogs"),
+    path(r'test', ResponseHandler(views.test),name="test")
 ]
